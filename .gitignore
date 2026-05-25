@@ -1,0 +1,56 @@
+# macOS
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Python / local environments
+__pycache__/
+*.py[cod]
+.python-version
+.venv/
+venv/
+env/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.log
+
+# Oracle / OCI credentials and wallets
+Wallet_*.zip
+*Wallet*.zip
+*.pem
+*.key
+*.p12
+*.jks
+*.sso
+ewallet.p12
+cwallet.sso
+keystore.jks
+truststore.jks
+tnsnames.ora
+sqlnet.ora
+oci_api_key*.pem
+*.oci
+
+# Archives are easy to accidentally use for wallets or local exports.
+# Force-add a safe archive explicitly if you intentionally want to publish it.
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
+# Generated/local output
+logs/
+tmp/
+temp/
+output/
+outputs/
+artifacts/
+
+# Codex/local handoff files, not needed for a public demo repo
+AGENTS.md
+AIDP_Codex_Handoff.md
+codex_start_prompt.txt
