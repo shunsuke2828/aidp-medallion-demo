@@ -61,7 +61,7 @@ Raw files on Managed Volume
 |---|---|
 | Workspace folder | `/Shared/odisv/<your_name>` |
 | Notebook | `aidp_medallion_demo.ipynb` |
-| Catalog | `sniwa_test` |
+| Catalog | `<your_catalog>` |
 | Schema | `production` |
 | Raw Volume | `demo_raw_landing` |
 | Artifact Volume | `demo_artifacts` |
@@ -69,7 +69,7 @@ Raw files on Managed Volume
 Notebook内では、Catalog名だけを自分の環境に合わせて変更します。
 
 ```python
-CATALOG = "sniwa_test"
+CATALOG = "<your_catalog>"
 SCHEMA = "production"
 ```
 
