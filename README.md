@@ -28,6 +28,25 @@ Raw files on Managed Volume
   -> Gold managed tables for BI/KPI
 ```
 
+## Why Medallion Architecture
+
+実際のデータ活用では、RawデータをそのままBIやAIに使うと、型の揺れ、重複、不正値、参照切れ、集計ロジックのばらつきがそのまま後続の分析結果に影響します。Medallion Architectureは、データを段階的に整備することで、どの時点で何を保証しているかを分かりやすくします。
+
+| Layer | 役割 | 価値 |
+|---|---|---|
+| Raw | 元ファイルを保管する | 再処理できる原本を残せる |
+| Bronze | Rawをほぼそのままテーブル化する | 取り込み履歴やソースを追跡できる |
+| Silver | 型変換、重複排除、品質チェック、結合を行う | 分析に使える信頼済みデータを作れる |
+| Gold | 業務KPIやBI向けに集計する | 利用者がすぐ使える形で提供できる |
+
+この分け方により、データエンジニアは処理の再実行や品質確認をしやすくなり、分析者や業務ユーザーはGold層の整備済みデータを安心して使えます。
+
+## Why OCI AIDP
+
+OCIのOracle AI Data Platform Workbench (AIDP) を使うと、Notebook、Spark Compute、Catalog、Managed Volume、SQL確認を同じ作業環境で扱えます。Rawファイルの配置、PySparkによる加工、SQLによる確認、Catalog上のテーブル管理を一つの流れとして実行できるため、Medallion Architectureの学習やデモに向いています。
+
+特にOracle Database、Autonomous Database、Oracle AnalyticsなどのOracleエコシステムと組み合わせる場合、データ処理から業務利用までをOCI上でつなげやすいことがメリットです。このデモでは、AIDP上でRaw/Bronze/Silver/Goldの流れを完結させ、Catalogで成果物を確認できる構成にしています。
+
 ## Repository Contents
 
 | ファイル | 用途 |
