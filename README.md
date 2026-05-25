@@ -45,6 +45,15 @@ Raw files on Managed Volume
 
 OCIのOracle AI Data Platform Workbench (AIDP) を使うと、Notebook、Spark Compute、Catalog、Managed Volume、SQL確認を同じ作業環境で扱えます。Rawファイルの配置、PySparkによる加工、SQLによる確認、Catalog上のテーブル管理を一つの流れとして実行できるため、Medallion Architectureの学習やデモに向いています。
 
+このデモで使う主なAIDPの部品は次の通りです。
+
+| AIDP component | 役割 |
+|---|---|
+| Notebook | Python/PySparkとSQLを実行し、データ生成、加工、確認を順番に進める作業画面 |
+| Spark Compute | Notebookの処理を実行する計算エンジン。大量データの変換、JOIN、集計を分散処理する |
+| Catalog | Schema、Table、Volumeなどのデータ資産を管理する場所。作成したBronze/Silver/Goldテーブルを確認できる |
+| Managed Volume | CSV/JSONLなどのファイルを置く管理領域。このデモではRawファイルとArtifact出力の置き場として使う |
+
 特にOracle Database、Autonomous Database、Oracle AnalyticsなどのOracleエコシステムと組み合わせる場合、データ処理から業務利用までをOCI上でつなげやすいことがメリットです。このデモでは、AIDP上でRaw/Bronze/Silver/Goldの流れを完結させ、Catalogで成果物を確認できる構成にしています。
 
 ## Repository Contents
