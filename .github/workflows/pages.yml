@@ -41,10 +41,17 @@ jobs:
           cp aidp_medallion_data_transformation_preview.png _site/
           touch _site/.nojekyll
 
+      - name: Package Pages artifact
+        run: |
+          tar --dereference --hard-dereference --directory _site -cvf artifact.tar .
+
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          path: _site
+          name: github-pages
+          path: artifact.tar
+          if-no-files-found: error
+          retention-days: 1
 
       - name: Deploy to GitHub Pages
         id: deployment
