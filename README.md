@@ -36,6 +36,18 @@ Raw files on Managed Volume
 
 DatabricksやOCI AIDPのようなモダンデータプラットフォームは、この課題に対して、データの保管、加工、カタログ管理、権限管理、分析、AI/MLを一つの流れで扱うために使われます。重要なのは、データを単に保存することではなく、Rawデータを信頼できる形に整え、その変換過程を追跡でき、チーム間で安全に共有し、BIやAIで継続的に再利用できる状態にすることです。
 
+Databricksが支持されている背景を見ると、モダンデータプラットフォームに求められる要素が分かりやすくなります。Spark、Delta Lake、MLflow、Unity CatalogのようなOSSやオープン化された技術、Lakehouse、Medallion Architectureといった共有しやすい設計概念が広がったことで、データエンジニア、分析者、AI/ML担当者が同じデータ基盤の上で協力しやすくなりました。加えて、データリネージ、AI支援、使いやすいNotebook、活発なコミュニティのような要素も、現場で使い続けられる製品として重要になっています。
+
+このAIDPデモでも、特定製品の機能比較だけではなく、モダンデータプラットフォームに共通する次の観点を体験できるようにしています。
+
+| 観点 | このデモで確認すること |
+|---|---|
+| Open data processing | PySparkとSQLで同じデータを加工・確認する |
+| Lakehouse-style design | RawファイルとManaged Tableを組み合わせて扱う |
+| Medallion Architecture | Raw/Bronze/Silver/Goldで品質を段階的に高める |
+| Catalog and governance | 作成したテーブルやVolumeをCatalog上で管理する |
+| Data quality and lineage | DQテーブル、監査列、ソースファイル情報で処理過程を追跡する |
+
 ## Why Medallion Architecture
 
 実際のデータ活用では、RawデータをそのままBIやAIに使うと、型の揺れ、重複、不正値、参照切れ、集計ロジックのばらつきがそのまま後続の分析結果に影響します。Medallion Architectureは、データを段階的に整備することで、どの時点で何を保証しているかを分かりやすくします。
