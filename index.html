@@ -375,6 +375,128 @@
       background: #f6f9fc;
     }
 
+    .concept-map {
+      padding: 18px;
+      background: #ffffff;
+    }
+
+    .history-grid,
+    .reason-grid,
+    .source-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .history-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .reason-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .source-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .history-card,
+    .reason-card,
+    .source-card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    .history-card {
+      border-top: 5px solid var(--muted);
+    }
+
+    .history-card.lake {
+      border-top-color: var(--teal);
+    }
+
+    .history-card.lakehouse {
+      border-top-color: var(--oracle);
+    }
+
+    .reason-card h3,
+    .history-card h3,
+    .source-card h3 {
+      font-size: 1.18rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      margin-bottom: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #eef3f8;
+      color: #314154;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .tag.oracle {
+      background: #fff1ed;
+      color: var(--oracle);
+    }
+
+    .tag.teal {
+      background: #ecf8f4;
+      color: var(--teal);
+    }
+
+    .tag.gold {
+      background: #fff7dc;
+      color: #8a5a10;
+    }
+
+    .bridge-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .mapping-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .mapping-row {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    .mapping-row strong {
+      color: var(--ink);
+    }
+
+    .lesson-band {
+      margin-top: 22px;
+      padding: 22px 24px;
+      border-radius: 8px;
+      background: #172033;
+      color: #eef4ff;
+    }
+
+    .lesson-band .muted {
+      color: #c3cfdd;
+    }
+
+    .source-card a {
+      font-weight: 800;
+    }
+
     .table-wrap {
       overflow-x: auto;
       border: 1px solid var(--line);
@@ -512,7 +634,12 @@
       .grid.three,
       .grid.four,
       .layer-strip,
-      .story-grid {
+      .story-grid,
+      .history-grid,
+      .reason-grid,
+      .source-grid,
+      .bridge-grid,
+      .mapping-row {
         grid-template-columns: 1fr;
       }
 
@@ -523,6 +650,16 @@
 
       section {
         padding: 52px 0;
+      }
+
+      .concept-map,
+      .transformation-overview {
+        overflow-x: auto;
+      }
+
+      .concept-map svg,
+      .transformation-overview svg {
+        min-width: 880px;
       }
     }
   </style>
@@ -668,6 +805,173 @@
     </section>
 
     <section class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Lakehouse basics</p>
+          <h2>レイクハウスが重要になった理由</h2>
+          <p class="muted">初学者が最初に押さえるべきポイントは、レイクハウスは「新しい保存先の名前」ではなく、DWHとデータレイクの弱点を埋めるための設計思想だということです。2つの記事でも、なぜそのアーキテクチャが求められるのかという背景理解が重要だと説明されています。</p>
+        </div>
+
+        <div class="diagram concept-map">
+          <svg viewBox="0 0 1120 520" role="img" aria-label="DWH、データレイク、レイクハウスの違い">
+            <defs>
+              <marker id="lakehouseArrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+                <path d="M2,2 L10,6 L2,10 Z" fill="#c74634"></path>
+              </marker>
+            </defs>
+            <rect width="1120" height="520" fill="#ffffff"></rect>
+            <text x="48" y="54" fill="#18212f" font-size="28" font-weight="800">DWH -> Data Lake -> Lakehouse という進化</text>
+            <text x="48" y="86" fill="#5b6676" font-size="17" font-weight="700">データ量、データ形式、AI活用、ガバナンス要件が増えたことで、単一用途の基盤では足りなくなりました。</text>
+
+            <g transform="translate(48 135)">
+              <rect width="300" height="270" rx="10" fill="#f8fafc" stroke="#cbd4df" stroke-width="2"></rect>
+              <rect width="300" height="58" rx="10" fill="#5b6676"></rect>
+              <text x="150" y="38" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800">DWH</text>
+              <text x="24" y="92" fill="#18212f" font-size="18" font-weight="800">得意</text>
+              <text x="24" y="124" fill="#3e4a5a" font-size="16">構造化データを高速に集計</text>
+              <text x="24" y="154" fill="#3e4a5a" font-size="16">BIレポートに向く</text>
+              <text x="24" y="196" fill="#b21f24" font-size="18" font-weight="800">困りごと</text>
+              <text x="24" y="228" fill="#3e4a5a" font-size="16">画像・音声・ログに弱い</text>
+              <text x="24" y="258" fill="#3e4a5a" font-size="16">保存コストやコピーが増えやすい</text>
+            </g>
+
+            <g transform="translate(410 135)">
+              <rect width="300" height="270" rx="10" fill="#f4fbf8" stroke="#9ccfc0" stroke-width="2"></rect>
+              <rect width="300" height="58" rx="10" fill="#1f8a70"></rect>
+              <text x="150" y="38" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800">Data Lake</text>
+              <text x="24" y="92" fill="#18212f" font-size="18" font-weight="800">得意</text>
+              <text x="24" y="124" fill="#3e4a5a" font-size="16">多様なファイルを安く保存</text>
+              <text x="24" y="154" fill="#3e4a5a" font-size="16">Rawを大量に残せる</text>
+              <text x="24" y="196" fill="#b21f24" font-size="18" font-weight="800">困りごと</text>
+              <text x="24" y="228" fill="#3e4a5a" font-size="16">品質・権限・履歴が曖昧になりやすい</text>
+              <text x="24" y="258" fill="#3e4a5a" font-size="16">そのままBIで読むと遅くなりがち</text>
+            </g>
+
+            <g transform="translate(772 135)">
+              <rect width="300" height="270" rx="10" fill="#fff8f6" stroke="#efc5bd" stroke-width="2"></rect>
+              <rect width="300" height="58" rx="10" fill="#c74634"></rect>
+              <text x="150" y="38" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800">Lakehouse</text>
+              <text x="24" y="92" fill="#18212f" font-size="18" font-weight="800">狙い</text>
+              <text x="24" y="124" fill="#3e4a5a" font-size="16">Rawは柔軟に保存</text>
+              <text x="24" y="154" fill="#3e4a5a" font-size="16">テーブルとして信頼性を持たせる</text>
+              <text x="24" y="196" fill="#18212f" font-size="18" font-weight="800">使い道</text>
+              <text x="24" y="228" fill="#3e4a5a" font-size="16">同じデータをBI、AI、MLへ再利用</text>
+              <text x="24" y="258" fill="#3e4a5a" font-size="16">品質・リネージ・権限を管理</text>
+            </g>
+
+            <line x1="360" y1="270" x2="398" y2="270" stroke="#c74634" stroke-width="4" marker-end="url(#lakehouseArrow)"></line>
+            <line x1="722" y1="270" x2="760" y2="270" stroke="#c74634" stroke-width="4" marker-end="url(#lakehouseArrow)"></line>
+
+            <rect x="90" y="445" width="940" height="50" rx="8" fill="#f5f7fb" stroke="#d9e1ea"></rect>
+            <text x="560" y="477" text-anchor="middle" fill="#18212f" font-size="17" font-weight="800">結論: 「安く大量に置ける」だけでなく、「信頼して使える」状態まで一つの流れで作る</text>
+          </svg>
+        </div>
+
+        <div class="history-grid" style="margin-top:18px">
+          <div class="history-card">
+            <span class="tag">Step 1</span>
+            <h3>DWHはBIに強い</h3>
+            <p class="muted">売上や会計のような表形式データをきれいに集計するには強力です。一方で、ログ、レビュー、画像、音声のようなAI時代のデータを同じ形で扱うには窮屈になりがちです。</p>
+          </div>
+          <div class="history-card lake">
+            <span class="tag teal">Step 2</span>
+            <h3>データレイクは保存に強い</h3>
+            <p class="muted">Rawファイルを安価に大量保存できます。ただし、置くだけでは「正しいデータ」「誰が使ってよいデータ」「どの分析に使われたデータ」までは説明しにくくなります。</p>
+          </div>
+          <div class="history-card lakehouse">
+            <span class="tag oracle">Step 3</span>
+            <h3>レイクハウスは両方をつなぐ</h3>
+            <p class="muted">Rawの柔軟性を残しながら、テーブル、品質管理、権限、履歴、SQL/Python処理を組み合わせます。今回のAIDPデモはこの考え方を小さく体験するものです。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Why Lakehouse</p>
+          <h2>初学者が理解すべき6つの価値</h2>
+          <p class="muted">レイクハウスを理解すると、なぜSpark、SQL、Catalog、Volume、Medallion、DQ、リネージが同じ話題として出てくるのかがつながります。ここでは、今回のデモで見せる内容に寄せて整理します。</p>
+        </div>
+
+        <div class="reason-grid">
+          <div class="reason-card">
+            <span class="tag oracle">1</span>
+            <h3>BIとAIのデータを分けすぎない</h3>
+            <p class="muted">BI用にDWH、AI用に別ストレージ、ログ分析用に別基盤を作ると、同じ顧客や商品データが複数コピーされます。レイクハウスでは、同じRawから用途別の完成データを作る考え方を取ります。</p>
+          </div>
+          <div class="reason-card">
+            <span class="tag teal">2</span>
+            <h3>Rawを残して、後から作り直せる</h3>
+            <p class="muted">集計結果だけを保存すると、ロジック変更や障害時に戻れません。RawをVolumeに残し、Bronzeに監査列を付けることで、再処理と説明がしやすくなります。</p>
+          </div>
+          <div class="reason-card">
+            <span class="tag gold">3</span>
+            <h3>ファイルをテーブルとして扱う</h3>
+            <p class="muted">CSVやJSONLを置くだけでは、型、更新、品質、アクセス制御の管理が難しくなります。Managed Table化することで、SQLで読める、Catalogで探せる、処理順序を設計できる状態にします。</p>
+          </div>
+          <div class="reason-card">
+            <span class="tag oracle">4</span>
+            <h3>品質問題を隠さない</h3>
+            <p class="muted">不正な値を黙って捨てると、あとで数字の説明ができません。SilverでDQテーブルに理由付きで分離し、Goldから除外することで、信頼できるKPIとデータ品質レポートを同時に作れます。</p>
+          </div>
+          <div class="reason-card">
+            <span class="tag teal">5</span>
+            <h3>SQL利用者とPython利用者をつなぐ</h3>
+            <p class="muted">データエンジニアはPySparkで変換し、アナリストはSQLで確認したいことが多いです。Notebook内にPythonセルとSQLセルを並べると、同じテーブルを異なるスキルの人が理解できます。</p>
+          </div>
+          <div class="reason-card">
+            <span class="tag gold">6</span>
+            <h3>ガバナンスを後付けにしない</h3>
+            <p class="muted">データが増えるほど、権限、所在、来歴、影響範囲の管理が重要になります。Catalog、監査列、DQサマリ、Goldテーブル名の統一は、小さなデモでもガバナンスの入口になります。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Reading notes</p>
+          <h2>2つの記事から、このデモへ落とし込んだこと</h2>
+          <p class="muted">参考記事の主題はDatabricksですが、ここでは特定製品の宣伝ではなく、AIDPでMedallionデモを説明するときに使える普遍的な考え方として整理しています。</p>
+        </div>
+
+        <div class="bridge-grid">
+          <div class="source-grid">
+            <div class="source-card">
+              <span class="tag oracle">Source</span>
+              <h3>Databricksが広めた概念を知る</h3>
+              <p class="muted">OSSへの貢献、Spark、Delta Lake、MLflow、Unity Catalog、Medallion、Lakehouse、リネージといった言葉がなぜ広まったのかを押さえます。</p>
+              <p><a href="https://qiita.com/akihiro_suto/items/aba8a56b119a94dae519">Qiitaの記事を開く</a></p>
+            </div>
+            <div class="source-card">
+              <span class="tag teal">Source</span>
+              <h3>Whyから学ぶ</h3>
+              <p class="muted">「なぜ今このアーキテクチャが必要か」を理解してから、Notebook、Compute、SQL、Python、品質管理、ガバナンスへ進む流れを重視します。</p>
+              <p><a href="https://zenn.dev/datablizzard/books/databricks-zenn-book-01/viewer/chapter0">Zennの章を開く</a></p>
+            </div>
+          </div>
+
+          <div class="mapping-list" aria-label="参考記事からAIDPデモへの対応">
+            <div class="mapping-row"><strong>Spark</strong><span class="muted">AIDPのSpark ComputeでPySpark変換とSQL集計を動かします。</span></div>
+            <div class="mapping-row"><strong>Lakehouse</strong><span class="muted">RawファイルをVolumeに置き、Managed TableとしてBronze/Silver/Goldへ整えます。</span></div>
+            <div class="mapping-row"><strong>Medallion</strong><span class="muted">Bronzeは証跡、Silverは品質、GoldはKPIという役割を分けます。</span></div>
+            <div class="mapping-row"><strong>Catalog</strong><span class="muted">作成したテーブルとVolumeをMaster Catalog上で確認できる資産にします。</span></div>
+            <div class="mapping-row"><strong>Lineage / DQ</strong><span class="muted">監査列とDQテーブルで、どこから来て、なぜ除外されたかを説明します。</span></div>
+            <div class="mapping-row"><strong>Hands-on</strong><span class="muted">まず小さな合成データで、基盤の考え方を安全に体験します。</span></div>
+          </div>
+        </div>
+
+        <div class="lesson-band">
+          <h3>このページで伝えたいメッセージ</h3>
+          <p class="muted">レイクハウスの価値は、データを一か所に置くことだけではありません。Rawを残し、品質を上げ、Catalogで見つけられるようにし、SQLとPythonで再利用できる状態にすることです。AIDPのMedallionデモでは、その流れをECデータで目に見える形にしています。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
       <div class="wrap">
         <div class="section-head">
           <p class="kicker">Platform principles</p>
