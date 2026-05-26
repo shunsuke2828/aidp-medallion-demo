@@ -279,6 +279,10 @@
       background: #fff8f6;
     }
 
+    .story-panel.wide {
+      grid-column: 1 / -1;
+    }
+
     .story-panel h3 {
       display: flex;
       align-items: center;
@@ -497,6 +501,42 @@
       font-weight: 800;
     }
 
+    .cost-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .cost-diagram {
+      padding: 18px;
+      background: #ffffff;
+    }
+
+    .cost-detail-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .cost-note {
+      padding: 18px 20px;
+      border: 1px solid #f1cf9c;
+      border-left: 5px solid var(--gold);
+      border-radius: 8px;
+      background: #fffaf0;
+    }
+
+    .cost-note strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .small-text {
+      font-size: 0.9rem;
+    }
+
     .table-wrap {
       overflow-x: auto;
       border: 1px solid var(--line);
@@ -638,6 +678,8 @@
       .history-grid,
       .reason-grid,
       .source-grid,
+      .cost-grid,
+      .cost-detail-grid,
       .bridge-grid,
       .mapping-row {
         grid-template-columns: 1fr;
@@ -653,12 +695,14 @@
       }
 
       .concept-map,
-      .transformation-overview {
+      .transformation-overview,
+      .cost-diagram {
         overflow-x: auto;
       }
 
       .concept-map svg,
-      .transformation-overview svg {
+      .transformation-overview svg,
+      .cost-diagram svg {
         min-width: 880px;
       }
     }
@@ -812,11 +856,6 @@
 
         <div class="diagram concept-map">
           <svg viewBox="0 0 1120 520" role="img" aria-label="DWH、データレイク、レイクハウスの違い">
-            <defs>
-              <marker id="lakehouseArrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
-                <path d="M2,2 L10,6 L2,10 Z" fill="#c74634"></path>
-              </marker>
-            </defs>
             <rect width="1120" height="520" fill="#ffffff"></rect>
             <text x="48" y="54" fill="#18212f" font-size="28" font-weight="800">DWH -> Data Lake -> Lakehouse という進化</text>
             <text x="48" y="86" fill="#5b6676" font-size="17" font-weight="700">データ量、データ形式、AI活用、ガバナンス要件が増えたことで、単一用途の基盤では足りなくなりました。</text>
@@ -857,8 +896,16 @@
               <text x="24" y="258" fill="#3e4a5a" font-size="16">品質・リネージ・権限を管理</text>
             </g>
 
-            <line x1="360" y1="270" x2="398" y2="270" stroke="#c74634" stroke-width="4" marker-end="url(#lakehouseArrow)"></line>
-            <line x1="722" y1="270" x2="760" y2="270" stroke="#c74634" stroke-width="4" marker-end="url(#lakehouseArrow)"></line>
+            <g transform="translate(352 238)">
+              <rect width="50" height="58" rx="25" fill="#c74634" stroke="#ffffff" stroke-width="4"></rect>
+              <path d="M17 17 L35 29 L17 41 Z" fill="#ffffff"></path>
+              <text x="25" y="84" text-anchor="middle" fill="#9d2f22" font-size="13" font-weight="800">形式を広げる</text>
+            </g>
+            <g transform="translate(714 238)">
+              <rect width="50" height="58" rx="25" fill="#c74634" stroke="#ffffff" stroke-width="4"></rect>
+              <path d="M17 17 L35 29 L17 41 Z" fill="#ffffff"></path>
+              <text x="25" y="84" text-anchor="middle" fill="#9d2f22" font-size="13" font-weight="800">信頼性を足す</text>
+            </g>
 
             <rect x="90" y="445" width="940" height="50" rx="8" fill="#f5f7fb" stroke="#d9e1ea"></rect>
             <text x="560" y="477" text-anchor="middle" fill="#18212f" font-size="17" font-weight="800">結論: 「安く大量に置ける」だけでなく、「信頼して使える」状態まで一つの流れで作る</text>
@@ -931,9 +978,9 @@
     <section class="alt">
       <div class="wrap">
         <div class="section-head">
-          <p class="kicker">Reading notes</p>
-          <h2>2つの記事から、このデモへ落とし込んだこと</h2>
-          <p class="muted">参考記事の主題はDatabricksですが、ここでは特定製品の宣伝ではなく、AIDPでMedallionデモを説明するときに使える普遍的な考え方として整理しています。</p>
+          <p class="kicker">Glossary bridge</p>
+          <h2>参考記事に出てくる用語を、このデモで読み替える</h2>
+          <p class="muted">初めて読むと、Spark、Lakehouse、Medallion、Catalog、Lineageなどの用語が一気に出てきます。ここでは参考記事のキーワードを、今回のAIDPデモで実際に触る部品へ対応づけます。</p>
         </div>
 
         <div class="bridge-grid">
@@ -958,7 +1005,6 @@
             <div class="mapping-row"><strong>Medallion</strong><span class="muted">Bronzeは証跡、Silverは品質、GoldはKPIという役割を分けます。</span></div>
             <div class="mapping-row"><strong>Catalog</strong><span class="muted">作成したテーブルとVolumeをMaster Catalog上で確認できる資産にします。</span></div>
             <div class="mapping-row"><strong>Lineage / DQ</strong><span class="muted">監査列とDQテーブルで、どこから来て、なぜ除外されたかを説明します。</span></div>
-            <div class="mapping-row"><strong>Hands-on</strong><span class="muted">まず小さな合成データで、基盤の考え方を安全に体験します。</span></div>
           </div>
         </div>
 
@@ -1117,14 +1163,14 @@
               <div class="mini-table">
                 <table>
                   <thead>
-                    <tr><th>項目</th><th>Raw値</th><th>意味</th></tr>
+                    <tr><th>Bronze列</th><th>例</th><th>意味</th></tr>
                   </thead>
                   <tbody>
-                    <tr><td>order_id</td><td>O10002</td><td>注文の識別子</td></tr>
-                    <tr><td>customer_id</td><td class="bad">C99999</td><td>存在しない顧客ID</td></tr>
-                    <tr><td>order_ts</td><td class="bad">not_a_timestamp</td><td>日時に変換できない</td></tr>
-                    <tr><td>status</td><td class="bad">unknown</td><td>許可されない状態</td></tr>
-                    <tr><td>order_total</td><td class="bad">-100.00</td><td>売上金額がマイナス</td></tr>
+                    <tr><td>order_id</td><td>O10002</td><td>Rawの注文ID</td></tr>
+                    <tr><td>_source_file</td><td>/Volumes/.../raw/orders/orders_2026-05-21.csv</td><td>どのファイルから来たか</td></tr>
+                    <tr><td>_raw_line_hash</td><td>a9f3c1...</td><td>Raw行を追跡する指紋</td></tr>
+                    <tr><td>customer_id</td><td class="bad">C99999</td><td>例外: 存在しない顧客ID</td></tr>
+                    <tr><td>order_ts</td><td class="bad">not_a_timestamp</td><td>例外: 日時に変換できない</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -1133,34 +1179,47 @@
             <div class="story-panel">
               <h3><span class="step-badge">2</span>Bronze -> Silver: 型と意味を揃え、DQで分岐</h3>
               <p class="muted">Silverでは、文字列だった日時・金額・数量を分析可能な型へ変換し、重複や参照切れを検出します。正常データはSales Factへ進み、不正データはDQテーブルに理由付きで残します。</p>
-              <div class="pill-row" aria-label="Silver変換処理">
-                <span class="pill">timestamp変換</span>
-                <span class="pill">numeric変換</span>
-                <span class="pill">重複排除</span>
-                <span class="pill">参照整合性</span>
-                <span class="pill">JOIN</span>
-              </div>
               <div class="mini-table">
                 <table>
                   <thead>
-                    <tr><th>source_pk</th><th>検出ルール</th><th>記録先</th></tr>
+                    <tr><th>処理</th><th>Bronzeでの状態</th><th>Silverでの結果</th></tr>
                   </thead>
                   <tbody>
-                    <tr><td>O10002</td><td class="bad">invalid_customer_id</td><td>dq_issues</td></tr>
-                    <tr><td>O10002</td><td class="bad">invalid_order_timestamp</td><td>dq_summary</td></tr>
+                    <tr><td>timestamp変換</td><td>order_ts = "2026-05-21 10:15:00"</td><td>order_ts_ts / order_date を作成</td></tr>
+                    <tr><td>numeric変換</td><td>order_total = "12800.50"</td><td>decimal型の売上金額に変換</td></tr>
+                    <tr><td>重複排除</td><td>同じ order_id が複数行</td><td>最新 updated_at の1行を採用</td></tr>
+                    <tr><td>参照整合性</td><td class="bad">customer_id = C99999</td><td>invalid_customer_id としてDQへ</td></tr>
+                    <tr><td>JOIN</td><td>注文・明細・商品・顧客が別々</td><td>demo_silver_sales_fact を作成</td></tr>
                   </tbody>
                 </table>
               </div>
             </div>
 
-            <div class="story-panel">
+            <div class="story-panel wide">
               <h3><span class="step-badge">3</span>Silver -> Gold: 業務が読むKPI粒度へ集計</h3>
-              <p class="muted">Goldでは、正規化済みのSales Factやレビュー、Webイベントを、デモで説明しやすい業務KPIに変換します。SQLセルから直接参照できるため、AIDP Notebook上で結果を確認しやすくなります。</p>
-              <div class="metric-list">
-                <div class="metric-item"><strong>demo_gold_daily_sales</strong><span class="muted">日付・チャネル別の売上、注文数、粗利率</span></div>
-                <div class="metric-item"><strong>demo_gold_product_performance</strong><span class="muted">商品別売上、粗利、レビュー評価</span></div>
-                <div class="metric-item"><strong>demo_gold_customer_360</strong><span class="muted">顧客別LTV、購入回数、最終購入日</span></div>
-                <div class="metric-item"><strong>demo_gold_executive_kpis</strong><span class="muted">経営向けの1行サマリKPI</span></div>
+              <p class="muted">Silverは明細粒度のきれいなFact、Goldは業務がそのまま読む集計済みKPIです。たとえば日次売上では、複数の注文明細を日付・チャネル単位にまとめます。</p>
+              <div class="mini-table">
+                <table>
+                  <thead>
+                    <tr><th colspan="4">Silver: demo_silver_sales_fact（明細粒度）</th></tr>
+                    <tr><th>order_id</th><th>order_date</th><th>channel</th><th>net_sales</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>O10001</td><td>2026-05-21</td><td>web</td><td>12,000</td></tr>
+                    <tr><td>O10001</td><td>2026-05-21</td><td>web</td><td>3,400</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mini-table">
+                <table>
+                  <thead>
+                    <tr><th colspan="5">Gold: demo_gold_daily_sales（日次・チャネル粒度）</th></tr>
+                    <tr><th>order_date</th><th>channel</th><th>order_count</th><th>net_sales</th><th>gross_margin_rate</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>2026-05-21</td><td>web</td><td>132</td><td>1,245,800</td><td>32.0%</td></tr>
+                  </tbody>
+                </table>
               </div>
             </div>
 
@@ -1224,6 +1283,89 @@
     </section>
 
     <section class="alt">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="kicker">Cost awareness</p>
+          <h2>AIDPデモで課金が発生しやすい場所</h2>
+          <p class="muted">AIDPは便利ですが、Notebookを開くだけでなくSpark Computeを稼働させると、計算リソースの利用量に応じて課金対象になります。Oracle公式ドキュメントでは、AIDP UnitはOCPU、メモリ、GPUなどの使用量から計算される課金単位として説明されています。</p>
+        </div>
+
+        <div class="cost-grid">
+          <div class="diagram cost-diagram">
+            <svg viewBox="0 0 980 520" role="img" aria-label="AIDPデモの課金ポイント">
+              <defs>
+                <marker id="costArrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+                  <path d="M2,2 L10,6 L2,10 Z" fill="#c74634"></path>
+                </marker>
+              </defs>
+              <rect width="980" height="520" fill="#ffffff"></rect>
+              <text x="46" y="50" fill="#18212f" font-size="26" font-weight="800">どこで費用が増えるか</text>
+              <text x="46" y="80" fill="#5b6676" font-size="16" font-weight="700">デモでは「実行中のCompute」と「残り続けるストレージ」を分けて考えます。</text>
+
+              <g transform="translate(46 122)">
+                <rect width="250" height="120" rx="10" fill="#f7f9fc" stroke="#d9e1ea" stroke-width="2"></rect>
+                <text x="24" y="38" fill="#18212f" font-size="18" font-weight="800">1. 準備</text>
+                <text x="24" y="70" fill="#3e4a5a" font-size="15">Catalog / Schema / Volumeを作成</text>
+                <text x="24" y="96" fill="#3e4a5a" font-size="15">まだ大きなSpark処理は動かさない</text>
+              </g>
+
+              <g transform="translate(365 122)">
+                <rect width="250" height="120" rx="10" fill="#fff8f6" stroke="#efb8b8" stroke-width="2"></rect>
+                <text x="24" y="38" fill="#18212f" font-size="18" font-weight="800">2. Notebook実行</text>
+                <text x="24" y="70" fill="#3e4a5a" font-size="15">Spark Computeを起動</text>
+                <text x="24" y="96" fill="#b21f24" font-size="15" font-weight="800">稼働時間 x リソースが課金対象</text>
+              </g>
+
+              <g transform="translate(684 122)">
+                <rect width="250" height="120" rx="10" fill="#fffaf0" stroke="#f1cf9c" stroke-width="2"></rect>
+                <text x="24" y="38" fill="#18212f" font-size="18" font-weight="800">3. データを残す</text>
+                <text x="24" y="70" fill="#3e4a5a" font-size="15">Raw / Artifact / Tableを保持</text>
+                <text x="24" y="96" fill="#8a5a10" font-size="15" font-weight="800">ストレージは残る限り課金対象</text>
+              </g>
+
+              <line x1="307" y1="182" x2="353" y2="182" stroke="#c74634" stroke-width="5" marker-end="url(#costArrow)"></line>
+              <line x1="626" y1="182" x2="672" y2="182" stroke="#c74634" stroke-width="5" marker-end="url(#costArrow)"></line>
+
+              <g transform="translate(90 310)">
+                <rect width="800" height="150" rx="12" fill="#f5f7fb" stroke="#d9e1ea" stroke-width="2"></rect>
+                <text x="28" y="38" fill="#18212f" font-size="18" font-weight="800">止める・消す・確認する</text>
+                <text x="28" y="72" fill="#3e4a5a" font-size="15">Spark Computeは、使い終わったら停止して稼働時間を増やさない</text>
+                <text x="28" y="100" fill="#3e4a5a" font-size="15">不要なRaw/Artifact/Tableは削除し、保存データを増やし続けない</text>
+                <text x="28" y="128" fill="#3e4a5a" font-size="15">ADW/ADBや外部連携を追加した場合は、それぞれのサービス料金も別途確認する</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="cost-detail-grid">
+            <div class="cost-note">
+              <strong>公式ドキュメント上の考え方</strong>
+              <p class="muted">AIDP Unitは、AMD/ARM/Intel OCPU、メモリ、GPUなどの使用量に応じて積み上がります。ドキュメント例では、AMD 2 OCPU + 32GB memory のデフォルトMaster Catalog Computeが 230 AIDP Units/hour、$0.230/hour として示されています。</p>
+              <p class="small-text muted">主な換算例: AMD OCPU/hour = 67 AIDP Units、ARM OCPU/hour = 27、Intel OCPU/hour = 87、NVIDIA GPU/hour = 4110、Memory GB/hour = 3。Object Storage、Logging、Metrics、DatabaseはOCI側で別途課金対象です。</p>
+              <p class="small-text"><a href="https://docs.oracle.com/en/cloud/paas/ai-data-platform/aidug/pricing.html">Oracle AIDP pricing documentation</a></p>
+            </div>
+
+            <div>
+              <div class="mini-table">
+                <table>
+                  <thead>
+                    <tr><th>見るポイント</th><th>課金の考え方</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Spark Compute</td><td>NotebookやWorkflowで稼働させると、AIDP Unitとして消費</td></tr>
+                    <tr><td>Managed Volume / Table</td><td>Rawファイル、Artifact、Managed Tableを残すとストレージ費用に注意</td></tr>
+                    <tr><td>ADW / ADB連携</td><td>参照・出力先として追加した場合、DB側のCompute/Storageも別管理</td></tr>
+                    <tr><td>価格表</td><td>Oracle Cloud Price ListのData Lake / AI Data Platform欄を確認</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="small-text muted">価格はリージョン、契約、通貨、将来の価格改定で変わるため、デモ実施前に公式価格表とCost Estimatorで確認してください。<a href="https://www.oracle.com/cloud/price-list/#pricing-data-lake">Oracle Cloud Price List</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
       <div class="wrap">
         <div class="section-head">
           <p class="kicker">Demo assets</p>
