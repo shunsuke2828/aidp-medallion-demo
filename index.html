@@ -50,12 +50,10 @@
     }
 
     .hero-inner {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
-      gap: 40px;
+      display: flex;
       align-items: center;
-      min-height: 640px;
-      padding: 72px 0 48px;
+      min-height: 460px;
+      padding: 72px 0;
     }
 
     .eyebrow {
@@ -134,22 +132,6 @@
       border-color: var(--oracle);
       background: var(--oracle);
       color: #fff;
-    }
-
-    .hero-visual {
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--paper);
-      box-shadow: var(--shadow);
-    }
-
-    .hero-visual img,
-    .hero-visual svg {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 6px;
     }
 
     section {
@@ -718,64 +700,6 @@
         <div class="hero-actions" aria-label="主要ファイル">
           <a class="button" href="https://github.com/shunsuke2828/aidp-medallion-demo">GitHubを見る</a>
         </div>
-      </div>
-      <div class="hero-visual">
-        <svg viewBox="0 0 720 480" role="img" aria-label="RawからGoldまでのMedallion Architecture概要図">
-          <rect width="720" height="480" fill="#ffffff"></rect>
-          <text x="360" y="48" text-anchor="middle" fill="#18212f" font-size="28" font-weight="800">Raw -> Bronze -> Silver -> Gold</text>
-          <text x="360" y="78" text-anchor="middle" fill="#5b6676" font-size="15" font-weight="700">AIDP Notebook + Spark Compute + Catalog + Managed Volume</text>
-
-          <g transform="translate(46 132)">
-            <rect width="132" height="180" rx="10" fill="#f5f7fb" stroke="#b8c2ce" stroke-width="2"></rect>
-            <rect width="132" height="46" rx="10" fill="#5b6676"></rect>
-            <text x="66" y="30" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="800">Raw</text>
-            <text x="66" y="78" text-anchor="middle" fill="#18212f" font-size="13" font-weight="700">CSV / JSONL</text>
-            <text x="66" y="104" text-anchor="middle" fill="#5b6676" font-size="12">元ファイル</text>
-            <text x="66" y="126" text-anchor="middle" fill="#5b6676" font-size="12">不正値も保持</text>
-          </g>
-
-          <g transform="translate(214 132)">
-            <rect width="132" height="180" rx="10" fill="#fff6ea" stroke="#9b6a38" stroke-width="2"></rect>
-            <rect width="132" height="46" rx="10" fill="#9b6a38"></rect>
-            <text x="66" y="30" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="800">Bronze</text>
-            <text x="66" y="78" text-anchor="middle" fill="#18212f" font-size="13" font-weight="700">Raw tables</text>
-            <text x="66" y="104" text-anchor="middle" fill="#5b6676" font-size="12">監査列を付与</text>
-            <text x="66" y="126" text-anchor="middle" fill="#5b6676" font-size="12">取込履歴を保持</text>
-          </g>
-
-          <g transform="translate(382 132)">
-            <rect width="132" height="180" rx="10" fill="#f2f7fb" stroke="#4f6d89" stroke-width="2"></rect>
-            <rect width="132" height="46" rx="10" fill="#4f6d89"></rect>
-            <text x="66" y="30" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="800">Silver</text>
-            <text x="66" y="78" text-anchor="middle" fill="#18212f" font-size="13" font-weight="700">Clean data</text>
-            <text x="66" y="104" text-anchor="middle" fill="#5b6676" font-size="12">型変換 / DQ</text>
-            <text x="66" y="126" text-anchor="middle" fill="#5b6676" font-size="12">JOIN / Fact化</text>
-          </g>
-
-          <g transform="translate(550 132)">
-            <rect width="132" height="180" rx="10" fill="#fff8da" stroke="#b77816" stroke-width="2"></rect>
-            <rect width="132" height="46" rx="10" fill="#f2c94c"></rect>
-            <text x="66" y="30" text-anchor="middle" fill="#18212f" font-size="16" font-weight="800">Gold</text>
-            <text x="66" y="78" text-anchor="middle" fill="#18212f" font-size="13" font-weight="700">BI / KPI</text>
-            <text x="66" y="104" text-anchor="middle" fill="#5b6676" font-size="12">日次売上</text>
-            <text x="66" y="126" text-anchor="middle" fill="#5b6676" font-size="12">商品 / 顧客KPI</text>
-          </g>
-
-          <g stroke="#c74634" stroke-width="4" stroke-linecap="round" fill="none">
-            <path d="M184 222 H204"></path>
-            <path d="M352 222 H372"></path>
-            <path d="M520 222 H540"></path>
-          </g>
-          <g fill="#c74634">
-            <path d="M204 222 l-10 -7 v14 z"></path>
-            <path d="M372 222 l-10 -7 v14 z"></path>
-            <path d="M540 222 l-10 -7 v14 z"></path>
-          </g>
-
-          <rect x="70" y="360" width="580" height="72" rx="10" fill="#f5f7fb" stroke="#d9e1ea"></rect>
-          <text x="360" y="390" text-anchor="middle" fill="#18212f" font-size="15" font-weight="800">データを保存するだけでなく、品質を上げ、追跡でき、再利用できる状態にする</text>
-          <text x="360" y="416" text-anchor="middle" fill="#5b6676" font-size="13">このデモではPySparkとSQLで同じGold結果を確認します</text>
-        </svg>
       </div>
     </div>
   </header>
